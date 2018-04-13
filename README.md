@@ -1,2 +1,2 @@
-#text-editor
+# text-editor
 - A basic text editor.
