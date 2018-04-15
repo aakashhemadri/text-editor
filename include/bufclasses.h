@@ -1,4 +1,3 @@
-#define MAX_CHAR 255
 #include<iostream>
 #include<string>
 typedef struct NODE{ 
