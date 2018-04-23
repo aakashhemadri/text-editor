@@ -8,11 +8,13 @@ class Buffer{
 		public:
 		Buffer();
 
-		vector<std::string> lines;
+		std::vector<std::string> lines;
 
 		bool insertLine(std::string, int);
 		bool appendLine(std::string, int);
 		bool removeLine(std::string, int);
 
-		std::string config();
-}
+		std::string repTabs();
+};
+
+#endif
