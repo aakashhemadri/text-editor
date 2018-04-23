@@ -10,11 +10,11 @@ class Buffer{
 
 		std::vector<std::string> lines;
 
-		bool insertLine(std::string, int);
-		bool appendLine(std::string, int);
-		bool removeLine(std::string, int);
+		void insertLine(std::string, int);
+	    void appendLine(std::string);
+		void removeLine(int);
 
-		std::string repTabs();
+		std::string repTabs(std::string);
 };
 
 #endif
