@@ -21,19 +21,21 @@
 class TERMINAL{
 		public:
 		std::fstream file;
-
+		std::string buf;
 		int srows;
 		int scols;
 		struct termios orig_termios;
 
 		TERMINAL(const char *a = "newFile.txt"){
 				file.open(a);
+				buf = "";
 		}
 		void initEditor();
 		void errorHandling(const char *);
 		void enableRawMode();
 		int getWindowSize();
-		void editorDraw();
+		void editorReposition();
+		void editorDrawRows();
 		char editorReadKey();
 		void editorProcessKeypress();
 		void editorRefreshScreen();
@@ -54,6 +56,12 @@ int main(int argc, char **argv){
 		}
 		return 0; 
 } 
+void TERMINAL::editorReposition(){
+		buf ="";
+		buf+="\x1b[2J";
+		buf+="\x1b[H";
+		write(STDOUT_FILENO,buf.c_str(),buf.size());
+}
 void TERMINAL::enableRawMode(){
 		if(tcgetattr(STDIN_FILENO, &orig_termios) == -1)
 				errorHandling("tcgetattr");
@@ -74,8 +82,7 @@ void TERMINAL::enableRawMode(){
 				errorHandling("tcsetattr");
 }
 void TERMINAL::errorHandling(const char *s){
-		write(STDOUT_FILENO,"\x1b[2J",4);
-		write(STDOUT_FILENO,"\x1b[H" ,3);
+		editorReposition();
 		perror(s);
 		exit(1);
 }
@@ -92,24 +99,24 @@ void TERMINAL::editorProcessKeypress() {
 		char c = editorReadKey();
 		switch(c) {
 				case CTRL_KEY('q'):
-						write(STDOUT_FILENO,"\x1b[2J",4);
-						write(STDOUT_FILENO,"\x1b[H",3);
+						editorReposition();
 						exit(0);
 				break;
 		}	
 }
 void TERMINAL::editorRefreshScreen() {
-		write(STDOUT_FILENO,"\x1b[2J" ,4);
-		write(STDOUT_FILENO,"\x1b[H" ,3);
-		editorDraw();
-		write(STDOUT_FILENO,"\x1b[H" ,3);
+		editorReposition();
+		editorDrawRows();
+		write(STDOUT_FILENO,buf.c_str(),buf.size());
 }
-void TERMINAL::editorDraw(){
+void TERMINAL::editorDrawRows(){
 		int i;
 		for(i = 0; i < srows; i++) {
-				write(STDOUT_FILENO, "~", 3);
+				//write(STDOUT_FILENO, "~", 3);
+				buf+="~";
 				if (i < srows - 1) {
-						write(STDOUT_FILENO, "\r\n", 2);
+						//write(STDOUT_FILENO, "\r\n", 2);
+						buf+="\r\n";
 				}
 		}
 }
