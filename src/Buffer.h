@@ -4,11 +4,15 @@
 #include<string>
 #include<vector>
 
-class Buffer{
-		public:
-		Buffer();
+#include"Undo.h"
 
-		std::vector<std::string> lines;
+class Buffer{
+	    private:
+        Undo *u;
+        public:
+		Buffer();
+    
+        std::vector<std::string> lines;
 
 		void insertLine(std::string, int);
 	    void appendLine(std::string);

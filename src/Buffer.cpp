@@ -1,5 +1,5 @@
 #include"Buffer.h"
-
+#include"Undo.h"
 Buffer::Buffer(){
 		
 }
@@ -16,6 +16,7 @@ void Buffer::insertLine(std::string line, int n)
 {
     line = repTabs(line);                   // Conversion (happens every time)
     lines.insert(lines.begin()+n, line);
+    u->ifInsert(line,n);
 }
 
 void Buffer::appendLine(std::string line)
