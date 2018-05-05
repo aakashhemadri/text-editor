@@ -7,16 +7,17 @@
 #include"Undo.h"
 
 class Buffer{
-	    private:
-        Undo *u;
         public:
 		Buffer();
     
         std::vector<std::string> lines;
+        std::vector<std::string> undo;
 
 		void insertLine(std::string, int);
 	    void appendLine(std::string);
 		void removeLine(int);
+        void undo();
+        void redo();
 
 		std::string repTabs(std::string);
 };
