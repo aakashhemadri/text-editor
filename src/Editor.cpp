@@ -82,6 +82,9 @@ void Editor::handleInput(int c)
             // The Escape/Alt key
             mode = 'n';
             break;
+
+        case CTRL(q):
+            break;
         case 127:
         case KEY_BACKSPACE:
             // The Backspace key

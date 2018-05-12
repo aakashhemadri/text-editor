@@ -4,20 +4,24 @@
 #include<string>
 #include<vector>
 
-#include"Undo.h"
-
 class Buffer{
+		struct NODE{
+            struct NODE* next;
+            std::string line;
+            std::string command;
+            int pos;
+        };
         public:
-		Buffer();
-    
+        NODE *undo;
+        NODE *redo;
         std::vector<std::string> lines;
-        std::vector<std::string> undo;
-
+        
+        Buffer();
 		void insertLine(std::string, int);
 	    void appendLine(std::string);
 		void removeLine(int);
-        void undo();
-        void redo();
+        void undoBuffer();
+        void redoBuffer();
 
 		std::string repTabs(std::string);
 };
