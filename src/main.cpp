@@ -1,7 +1,7 @@
 #include<ncurses.h>
 #include<string>
 
-#include"Editor.h"
+#include"editor.h"
 
 void ncursesInit(){
 		initscr();				//start ncurses mode
@@ -11,14 +11,14 @@ void ncursesInit(){
 }
 
 int main(int argc, char* argv[]){
-		Editor ed;
+		EDITOR ed;
 		std::string fileName = "";
 		if( argc > 1){
 				fileName = argv[1];
-				ed = Editor(fileName);
+				ed = EDITOR(fileName);
 		}
 		else{
-				ed = Editor();
+				ed = EDITOR();
 		}
 
 		ncursesInit();			//Initialize ncurses

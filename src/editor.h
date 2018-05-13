@@ -3,13 +3,13 @@
 
 #include<ncurses.h>
 
-#include"Buffer.h"
+#include"buffer.h"
 
-class Editor{
+class EDITOR{
 private:
 		int x, y;
 		char mode;
-		Buffer *buff;
+		BUFFER *buff;
 		std::string status, filename;
 
 		// Cursor movement
@@ -23,8 +23,8 @@ private:
 
 		void saveFile();                    // Saves buffer into the file
 public:
-		Editor();							//Default constructor
-		Editor(std::string);				//Parameterized constructor
+		EDITOR();							//Default constructor
+		EDITOR(std::string);				//Parameterized constructor
 
 		char getMode(){return mode;};
 

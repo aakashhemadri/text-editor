@@ -4,7 +4,7 @@
 #include<string>
 #include<vector>
 
-class Buffer{
+class BUFFER{
 		struct NODE{
             struct NODE* next;
             std::string line;
@@ -16,7 +16,7 @@ class Buffer{
         NODE *redo;
         std::vector<std::string> lines;
         
-        Buffer();
+        BUFFER();
 		void insertLine(std::string, int);
 	    void appendLine(std::string);
 		void removeLine(int);
