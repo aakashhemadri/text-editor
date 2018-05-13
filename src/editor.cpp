@@ -11,7 +11,7 @@ EDITOR::EDITOR(){
 	filename = "untitled";
 
     buff = new BUFFER();
-	buff->appendLine("");
+	error_msg = buff->appendLine("");
 
 }
 
@@ -30,13 +30,13 @@ EDITOR::EDITOR(std::string fn)
 			{
 			std::string temp;
 			std::getline(in, temp);
-			buff->appendLine(temp);
+			error_msg = buff->appendLine(temp);
 			}
 	}
     else
 	{
 			std::cerr << "Cannot open file: '" << fn << "'\n";
-			buff->appendLine("");
+			error_msg = buff->appendLine("");
 	}
 }
 
@@ -68,14 +68,15 @@ void EDITOR::handleInput(int c)
             break;
         case 'i':
             // Press 'i' to enter insert mode
+            error_msg = "";
             mode = 'i';
             break;
         case 'u':
-            buff->undoBuffer();
+            error_msg = buff->undoBuffer();
             mode = 'n';
             break;
         case 'r':
-            buff->redoBuffer();
+            error_msg = buff->redoBuffer();
             mode = 'n';
         case 's':
             // Press 's' to save the current file
@@ -140,10 +141,14 @@ void EDITOR::handleInput(int c)
                 buff->insertLine(buff->lines[y].substr(x, buff->lines[y].length() - x), y + 1);
                 // Remove that part of the line
                 buff->lines[y].erase(x, buff->lines[y].length() - x);
+                
+                error_msg = buff->_insertLine(buff->lines[y],y);
+                error_msg = buff->_insertLine(buff->lines[y+1],y+1);
             }
             else
             {
-                buff->insertLine("", y+1);
+                error_msg = buff->_insertLine(buff->lines[y],y);
+                buff->insertLine("", y+1); 
             }
             x = 0;
             moveDown();
@@ -227,12 +232,12 @@ void EDITOR::printStatusLine()
 }
 void EDITOR::deleteLine()
 {
-    buff->removeLine(y);
+    error_msg = buff->removeLine(y);
 }
 
 void EDITOR::deleteLine(int i)
 {
-    buff->removeLine(i);
+    error_msg = buff->removeLine(i);
 }
 void EDITOR::saveFile()
 {
@@ -275,5 +280,6 @@ void EDITOR::updateStatus()
         break;
     }
     status += "\tCOL: " + std::to_string(x) + "\tROW: " + std::to_string(y);
+    status += "\tSTATUS: " + error_msg;
 }
 

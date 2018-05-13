@@ -10,7 +10,7 @@ private:
 		int x, y;
 		char mode;
 		BUFFER *buff;
-		std::string status, filename;
+		std::string status, filename, error_msg;
 
 		// Cursor movement
 		void moveUp();
