@@ -29,10 +29,10 @@ class BUFFER:public LL{
         std::vector<std::string> lines;
         
         BUFFER();
+        
         void insertLine(std::string, int);
-
         std::string _insertLine(std::string, int);
-        std::string appendLine(std::string);
+        void appendLine(std::string);
         std::string removeLine(int);
         std::string undoBuffer();
         std::string redoBuffer();

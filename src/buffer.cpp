@@ -27,21 +27,10 @@ std::string BUFFER::_insertLine(std::string line, int n){
     undo = temp;
     return undo->line;
 }
-std::string BUFFER::appendLine(std::string line)
+void BUFFER::appendLine(std::string line)
 {
     line = repTabs(line);
     lines.push_back(line);
-    
-    NODE* temp;
-   if(line != ""){
-    temp = new NODE();
-    temp->line = line;
-    temp->command = "INSERT";
-    temp->pos = lines.size();
-    temp->next = undo;
-    undo = temp;
-   }
-   return undo->line;
 }
 
 std::string BUFFER::removeLine(int n)
@@ -96,7 +85,7 @@ std::string BUFFER::redoBuffer(){
         temp->next = undo;
         undo = temp;
         
-        return "Deleted one line";
+        return "Inserted one line";
     }
     else if(redo->command == "DELETE"){ 
         lines.erase(lines.begin()+undo->pos);
@@ -105,7 +94,7 @@ std::string BUFFER::redoBuffer(){
         temp->next = undo;
         undo = temp;
 
-        return "Inserted one line";
+        return "Deleted one line";
     }
     else if(redo->command == "ROOT"){
         return "Already at oldest change";

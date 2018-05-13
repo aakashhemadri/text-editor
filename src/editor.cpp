@@ -11,7 +11,7 @@ EDITOR::EDITOR(){
 	filename = "untitled";
 
     buff = new BUFFER();
-	error_msg = buff->appendLine("");
+	buff->appendLine("");
 
 }
 
@@ -30,13 +30,13 @@ EDITOR::EDITOR(std::string fn)
 			{
 			std::string temp;
 			std::getline(in, temp);
-			error_msg = buff->appendLine(temp);
+			buff->appendLine(temp);
 			}
 	}
     else
 	{
 			std::cerr << "Cannot open file: '" << fn << "'\n";
-			error_msg = buff->appendLine("");
+			buff->appendLine("");
 	}
 }
 
